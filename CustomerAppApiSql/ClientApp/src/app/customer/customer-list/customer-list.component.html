@@ -1,0 +1,79 @@
+<div>
+  <div [ngStyle]="{'float':'left'}">
+    <button class="btn btn-info" [routerLink]="['add']"><i class="glyphicon glyphicon-plus"></i>Add Customer</button>
+  </div>
+  <div [ngStyle]="{'float':'right'}">
+    <form class="form-inline">
+      <div class="form-group mb-2">
+        <label class="text">Search By:</label>
+        <select class="form-control" #optionSearch>
+          <option value="name" selected>Name</option>
+          <option value="country">Country</option>
+        </select>
+      </div>
+      <div class="form-group mx-sm-3 mb-2">
+        <input type="text" class="form-control" placeholder="Type here to search ..." #valueSearch>
+      </div>
+      <button class="btn btn-info" (click)="onSearch(optionSearch.value, valueSearch.value)">
+        <i class="glyphicon glyphicon-search"></i>
+      </button>
+    </form>
+  </div>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th (click)="onSort('id')">#
+      <ng-template *ngIf="sortById == 1; then sortUp else sortDown">
+      </ng-template>
+      <ng-template #sortDown>
+        <i class="glyphicon glyphicon-triangle-bottom sort-down"></i>
+      </ng-template>
+      <ng-template #sortUp>
+        <i class="glyphicon glyphicon-triangle-top sort-up"></i>
+      </ng-template>
+      </th>
+      <th (click)="onSort('name')">
+        NAME
+        <ng-template *ngIf="sortByName == 1; then sortUp else sortDown">
+        </ng-template>
+        <ng-template #sortDown>
+          <i class="glyphicon glyphicon-triangle-bottom sort-down"></i>
+        </ng-template>
+        <ng-template #sortUp>
+          <i class="glyphicon glyphicon-triangle-top sort-up"></i>
+        </ng-template>
+      </th>
+      <th (click)="onSort('country')">
+        COUNTRY
+        <ng-template *ngIf="sortByCountry == 1; then sortUp else sortDown">
+        </ng-template>
+        <ng-template #sortDown>
+          <i class="glyphicon glyphicon-triangle-bottom sort-down"></i>
+        </ng-template>
+        <ng-template #sortUp>
+          <i class="glyphicon glyphicon-triangle-top sort-up"></i>
+        </ng-template>
+      </th>
+      <th>PHONE</th>
+      <th>ACTION</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let customer of customers">
+      <td>{{customer.id}}</td>
+      <td>{{customer.name}}</td>
+      <td>{{customer.country}}</td>
+      <td>{{customer.phone}}</td>
+      <td>
+        <button class="btn btn-warning" [routerLink]="['edit/' + customer.id ]"><i class="glyphicon glyphicon-pencil"></i></button>
+        <button class="btn btn-danger" (click)="onDelete(customer.id)"><i class="glyphicon glyphicon-trash"></i></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="noCustomer">
+  <h3>
+    There are no customers
+  </h3>
+</div>

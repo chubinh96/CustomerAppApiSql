@@ -1,0 +1,31 @@
+
+<form>
+  <div class="form-group" *ngIf="status">
+    <label>ID</label>
+    <input disabled type="number" class="form-control" [(ngModel)]="currentCustomer.id" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group">
+    <label>NAME</label>
+    <input type="text" class="form-control" [(ngModel)]="currentCustomer.name" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group">
+    <label>COUNTRY</label>
+    <input type="text" class="form-control" [(ngModel)]="currentCustomer.country" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group">
+    <label>PHONE</label>
+    <input type="number" class="form-control" [(ngModel)]="currentCustomer.phone" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group">
+    <ng-template *ngIf="status; then editBlock else addBlock">
+    </ng-template>
+    <ng-template #addBlock>
+      <button type="submit" class="btn btn-primary" (click)="onAdd()">Add</button>
+    </ng-template>
+    <ng-template #editBlock>
+      <button type="submit" class="btn btn-primary" (click)="onEdit()">Edit</button>
+    </ng-template>
+    <button type="submit" class="btn btn-danger" [routerLink]="['/customer']">Cancel</button>
+  </div>
+</form>
+
